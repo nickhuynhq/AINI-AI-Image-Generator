@@ -6,7 +6,7 @@ import { Home, CreatePosts } from "./pages";
 const App = () => {
   return (
     <BrowserRouter>
-      <header className="w-full flex justify-between items-center bg-white sm:px-8 px-4 py-4 border-b border-b-[#e6ebf4]">
+      <header className="w-full flex justify-between items-center bg-white sm:px-8 md:px-12 lg:px-14 py-4 border-b border-b-[#e6ebf4]">
         <Link to="/" className="flex items-center gap-3">
           <img src={logo} alt="logo" className="w-8 object-contain" />
           <h1 className="font-bold text-2xl">AINI</h1>
