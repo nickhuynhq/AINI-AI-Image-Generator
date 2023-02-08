@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Loader, Card, FormField } from "../components";
+import { Loader, Card, FormField, RenderCards } from "../components";
 
 const Home = () => {
   const [loading, setLoading] = useState(false);
@@ -35,6 +35,15 @@ const Home = () => {
                 <span className="text-[#222328]">{searchText}</span>
               </h2>
             )}
+
+            {/* Section of Rendered Images */}
+            <div className="grid lg:grid-cols-4 sm:grid-cols-3 xs:grid-cols-2 grid-cols-1 gap-3">
+              {searchText ? (
+                <RenderCards data={[]} title="No search results found"/>
+              ) : (
+                <RenderCards data={[]} title="No posts found" />
+              )}
+            </div>
           </>
         )}
       </div>
