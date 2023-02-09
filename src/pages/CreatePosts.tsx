@@ -14,9 +14,14 @@ const CreatePosts = () => {
 
   const handleSubmit = () => {};
 
-  const handleChange = (e: React.FormEvent<HTMLInputElement>) => {};
+  const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
+    setForm({ ...form, [e.currentTarget.name]: e.currentTarget.value });
+  };
 
-  const handleSurpriseMe = () => {};
+  const handleSurpriseMe = () => {
+    const randomPrompt = getRandomPrompt(form.prompt)
+    setForm({...form, prompt: randomPrompt})
+  };
 
   return (
     <section className="max-w-7xl mx-auto">
