@@ -12,7 +12,7 @@ const CreatePosts = () => {
 
   const handleSubmit = () => {};
 
-  const handleChange = (e: any) => {};
+  const handleChange = (e: React.FormEvent<HTMLInputElement>) => {};
 
   const handleSurpriseMe = () => {};
 
