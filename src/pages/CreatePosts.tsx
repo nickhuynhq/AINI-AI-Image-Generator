@@ -22,7 +22,7 @@ const CreatePosts = () => {
       try {
         setGeneratingImg(true);
         setformError(false);
-        window.scrollTo(0, 0); 
+        window.scrollTo(0, 0);
 
         const response = await fetch("http://localhost:8080/api/v1/dalle", {
           method: "POST",
@@ -42,23 +42,46 @@ const CreatePosts = () => {
         });
 
         toast.success("Image generated! ❤️");
-
       } catch (error) {
-        console.log(error);
-        alert(error);
+        toast.error(`${error}`);
       } finally {
         setGeneratingImg(false);
       }
     } else {
-      toast.error("Please add a prompt!");
+      toast.error("Please enter a prompt to generate an image.");
       setformError(true);
     }
   };
 
-  const handleSubmit = () => {};
+  const handleSubmit = async (e: React.SyntheticEvent) => {
+    e.preventDefault();
+
+    if (form.prompt && form.photo) {
+      setLoading(true);
+
+      try {
+        const response = await fetch("http://localhost:8080/api/v1/post", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(form),
+        });
+
+        await response.json();
+        navigate("/");
+      } catch (error) {
+        toast.error(`${error}`);
+      } finally {
+        setLoading(false);
+      }
+    } else {
+      toast.error(`Please enter a prompt to generate an image.`);
+    }
+  };
 
   const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
-    setForm({ ...form, [e.currentTarget.name]: e.currentTarget.value });
+    setForm({ ...form, [e.currentTarget.name]: e.currentTarget.value.trim() });
   };
 
   const handleSurpriseMe = () => {
@@ -107,12 +130,12 @@ const CreatePosts = () => {
           </div>
 
           <div className="flex flex-col gap-6 lg:w-1/2">
-            {/* Story Placeholder Desktop */}
-            <div className="flex flex-col gap-3 h-[320px] ">
+            {/* Story Placeholder */}
+            <div className="flex flex-col gap-3 h-full ">
               <h2 className="block text-md font-medium text-gray-900 ">
                 Story
               </h2>
-              <div className="h-full overflow-y-scroll text-gray-600 bg-gray-200 border border-gray-300 text-sm rounded-lg flex flex-col px-4 py-3 gap-1">
+              <div className="h-full text-gray-600 bg-gray-200 border border-gray-300 text-sm rounded-lg flex flex-col px-4 py-3 gap-1">
                 {form.story.length !== 0
                   ? form.story.map((paragraph, idx) => (
                       <p key={idx}>{paragraph}</p>
