@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import preview from "../assets/preview.png";
 import { getRandomPrompt } from "../utils/index";
 import { FormField, Loader } from "../components";
+import toast from "react-hot-toast";
 
 const CreatePosts = () => {
   const navigate = useNavigate();
@@ -13,13 +14,16 @@ const CreatePosts = () => {
     story: [],
   });
   const [generatingImg, setGeneratingImg] = useState(false);
+  const [formError, setformError] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const generateImage = async () => {
     if (form.prompt) {
       try {
         setGeneratingImg(true);
-        window.scrollTo(0, 0);
+        setformError(false);
+        window.scrollTo(0, 0); 
+
         const response = await fetch("http://localhost:8080/api/v1/dalle", {
           method: "POST",
           headers: {
@@ -29,7 +33,6 @@ const CreatePosts = () => {
         });
 
         const data = await response.json();
-
         const separateLines = data.story.split(/\r?\n|\r|\n/g);
 
         setForm({
@@ -37,6 +40,9 @@ const CreatePosts = () => {
           photo: `data:image/jpeg;base64,${data.photo}`,
           story: separateLines,
         });
+
+        toast.success("Image generated! ❤️");
+
       } catch (error) {
         console.log(error);
         alert(error);
@@ -44,7 +50,8 @@ const CreatePosts = () => {
         setGeneratingImg(false);
       }
     } else {
-      alert("Please enter a prompt");
+      toast.error("Please add a prompt!");
+      setformError(true);
     }
   };
 
@@ -130,6 +137,7 @@ const CreatePosts = () => {
               value={form.prompt}
               handleChange={handleChange}
               isSurpriseMe
+              formError={formError}
               handleSurpriseMe={handleSurpriseMe}
             />
 
