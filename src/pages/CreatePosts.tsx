@@ -90,115 +90,124 @@ const CreatePosts = () => {
   };
 
   return (
-    <section className="w-full h-full flex flex-col">
-      <div>
-        <h1 className="font-extrabold text-[#222328] text-[32px]">Create</h1>
-        <p className="mt-2 text-[#666e75] text-[16px] lg:max-w-[60%]">
-          Create imaginative and visually stunning images thorugh DALL-E AI and
-          share them with the community
-        </p>
-      </div>
-
-      <form
-        className="flex mt-10 w-full flex-col gap-6"
-        onSubmit={handleSubmit}
-      >
-        {/* Form Fields */}
-        <div className="flex gap-12 flex-col lg:flex-row">
-          {/* Preview Placeholder/Box */}
-          <div className="relative bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full h-[300px] sm:w-[420px] sm:h-[420px] md:w-[512px] md:h-[512px] p-4 flex justify-center items-center">
-            {form.photo ? (
-              <img
-                src={form.photo}
-                alt={form.prompt}
-                className="w-full h-full object-contain"
-              />
-            ) : (
-              <img
-                src={preview}
-                alt={preview}
-                className="w-9/12 h-9/12 object-contain opacity-40"
-              />
-            )}
-
-            {/* Loading State */}
-            {generatingImg && (
-              <div className="absolute animate-pulse inset-0 z-0 flex justify-center items-center bg-[rgba(0,0,0,0.5)] rounded-lg">
-                <Loader />
-              </div>
-            )}
-          </div>
-
-          <div className="flex flex-col gap-6 lg:w-1/2">
-            {/* Story Placeholder */}
-            <div className="flex flex-col gap-3 h-full ">
-              <h2 className="block text-md font-medium text-gray-900 ">
-                Story
-              </h2>
-              <div className="h-full text-gray-600 bg-gray-200 border border-gray-300 text-sm rounded-lg flex flex-col px-4 py-3 gap-1">
-                {form.story.length !== 0
-                  ? form.story.map((paragraph, idx) => (
-                      <p key={idx}>{paragraph}</p>
-                    ))
-                  : "Please generate an image to view a story..."}
-              </div>
-            </div>
-
-            <FormField
-              labelName="Your Name"
-              type="text"
-              name="name"
-              placeholder="Type your name here..."
-              value={form.name}
-              handleChange={handleChange}
-            />
-            <FormField
-              labelName="Prompt"
-              type="text"
-              name="prompt"
-              placeholder="ie. an armchair in the shape of an avocado..."
-              value={form.prompt}
-              handleChange={handleChange}
-              isSurpriseMe
-              formError={formError}
-              handleSurpriseMe={handleSurpriseMe}
-            />
-
-            {/* Generate Image Button */}
-            <div className="mt-2 flex w-full justify-between gap-5 lg:self-end">
-              <button
-                type="submit"
-                className="hidden md:flex text-white bg-[#6469ff] font-medium rounded-md text-sm w-full sm:w-auto px-5 py-2.5 text-center"
-              >
-                {loading ? "Sharing..." : "Share with the community"}
-              </button>
-
-              <button
-                type="button"
-                onClick={generateImage}
-                className="text-white bg-green-700 font-medium rounded-md text-sm w-full sm:w-auto px-5 py-2.5 text-center"
-              >
-                {generatingImg ? "Generating..." : "Generate"}
-              </button>
-            </div>
-          </div>
+    <>
+      {loading && (
+        <div className="fixed inset-0 z-10 h-screen bg-[rgba(0,0,0,0.7)] flex items-center justify-center flex-col gap-3">
+          <Loader />
+          <p className=" text-white font-bold text-2xl text-center">Sharing Post...</p>
         </div>
+      )}
 
-        {/* Submit Button */}
-        <div className=" md:hidden pb-12">
-          <p className="mt-2  text-[#666e75] text-md">
-            * Once you have created the image you want, you can share it with
-            others in the community!
+      <section className="relative w-full h-full flex flex-col">
+        <div>
+          <h1 className="font-extrabold text-[#222328] text-[32px]">Create</h1>
+          <p className="mt-2 text-[#666e75] text-[16px] lg:max-w-[60%]">
+            Create imaginative and visually stunning images thorugh DALL-E AI
+            and share them with the community
           </p>
-          <button
-            type="submit"
-            className="mt-3 text-white bg-[#6469ff] font-medium rounded-md text-sm w-full sm:w-auto px-5 py-2.5 text-center"
-          >
-            {loading ? "Sharing..." : "Share with the community"}
-          </button>
         </div>
-      </form>
-    </section>
+
+        <form
+          className="flex mt-10 w-full flex-col gap-6"
+          onSubmit={handleSubmit}
+        >
+          {/* Form Fields */}
+          <div className="flex gap-12 flex-col lg:flex-row">
+            {/* Preview Placeholder/Box */}
+            <div className="relative bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full h-[300px] sm:w-[420px] sm:h-[420px] md:w-[512px] md:h-[512px] p-4 flex justify-center items-center">
+              {form.photo ? (
+                <img
+                  src={form.photo}
+                  alt={form.prompt}
+                  className="w-full h-full object-contain"
+                />
+              ) : (
+                <img
+                  src={preview}
+                  alt={preview}
+                  className="w-9/12 h-9/12 object-contain opacity-40"
+                />
+              )}
+
+              {/* Loading State */}
+              {generatingImg && (
+                <div className="absolute animate-pulse inset-0 z-0 flex justify-center items-center bg-[rgba(0,0,0,0.5)] rounded-lg">
+                  <Loader />
+                </div>
+              )}
+            </div>
+
+            <div className="flex flex-col gap-6 lg:w-1/2">
+              {/* Story Placeholder */}
+              <div className="flex flex-col gap-3 h-full ">
+                <h2 className="block text-md font-medium text-gray-900 ">
+                  Story
+                </h2>
+                <div className="h-full text-gray-600 bg-gray-200 border border-gray-300 text-sm rounded-lg flex flex-col px-4 py-3 gap-1">
+                  {form.story.length !== 0
+                    ? form.story.map((paragraph, idx) => (
+                        <p key={idx}>{paragraph}</p>
+                      ))
+                    : "Please generate an image to view a story..."}
+                </div>
+              </div>
+
+              <FormField
+                labelName="Your Name"
+                type="text"
+                name="name"
+                placeholder="Type your name here..."
+                value={form.name}
+                handleChange={handleChange}
+              />
+              <FormField
+                labelName="Prompt"
+                type="text"
+                name="prompt"
+                placeholder="ie. an armchair in the shape of an avocado..."
+                value={form.prompt}
+                handleChange={handleChange}
+                isSurpriseMe
+                formError={formError}
+                handleSurpriseMe={handleSurpriseMe}
+              />
+
+              {/* Generate Image Button */}
+              <div className="mt-2 flex w-full justify-between gap-5 lg:self-end">
+                <button
+                  type="submit"
+                  className="hidden md:flex text-white bg-[#6469ff] font-medium rounded-md text-sm w-full sm:w-auto px-5 py-2.5 text-center"
+                >
+                  {loading ? "Sharing..." : "Share with the community"}
+                </button>
+
+                <button
+                  type="button"
+                  onClick={generateImage}
+                  className="text-white bg-green-700 font-medium rounded-md text-sm w-full sm:w-auto px-5 py-2.5 text-center"
+                >
+                  {generatingImg ? "Generating..." : "Generate"}
+                </button>
+              </div>
+            </div>
+          </div>
+
+          {/* Submit Button */}
+          <div className=" md:hidden pb-12">
+            <p className="mt-2  text-[#666e75] text-md">
+              * Once you have created the image you want, you can share it with
+              others in the community!
+            </p>
+            <button
+              type="submit"
+              className="mt-3 text-white bg-[#6469ff] font-medium rounded-md text-sm w-full sm:w-auto px-5 py-2.5 text-center"
+            >
+              {loading ? "Sharing..." : "Share with the community"}
+            </button>
+          </div>
+        </form>
+      </section>
+    </>
   );
 };
 
