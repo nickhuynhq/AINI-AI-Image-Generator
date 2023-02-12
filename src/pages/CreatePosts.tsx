@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import preview from "../assets/preview.png";
 import { getRandomPrompt } from "../utils/index";
@@ -94,7 +94,9 @@ const CreatePosts = () => {
       {loading && (
         <div className="fixed inset-0 z-10 h-screen bg-[rgba(0,0,0,0.7)] flex items-center justify-center flex-col gap-3">
           <Loader />
-          <p className=" text-white font-bold text-2xl text-center">Sharing Post...</p>
+          <p className=" text-white font-bold text-2xl text-center">
+            Sharing Post...
+          </p>
         </div>
       )}
 
