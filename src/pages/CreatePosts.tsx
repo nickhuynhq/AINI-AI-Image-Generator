@@ -59,7 +59,7 @@ const CreatePosts = () => {
   };
 
   return (
-    <section className="w-full h-[512px] px-12  flex flex-col">
+    <section className="w-full h-full px-12  flex flex-col">
       <div>
         <h1 className="font-extrabold text-[#222328] text-[32px]">Create</h1>
         <p className="mt-2 text-[#666e75] text-[16px] lg:max-w-[60%]">
