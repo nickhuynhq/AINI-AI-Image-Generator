@@ -6,7 +6,12 @@ import { FormField, Loader } from "../components";
 
 const CreatePosts = () => {
   const navigate = useNavigate();
-  const [form, setForm] = useState({ name: "", prompt: "", photo: "" });
+  const [form, setForm] = useState({
+    name: "",
+    prompt: "",
+    photo: "",
+    story: [],
+  });
   const [generatingImg, setGeneratingImg] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -24,7 +29,13 @@ const CreatePosts = () => {
 
         const data = await response.json();
 
-        setForm({ ...form, photo: `data:image/jpeg;base64,${data.photo}` });
+        const separateLines = data.story.split(/\r?\n|\r|\n/g);
+
+        setForm({
+          ...form,
+          photo: `data:image/jpeg;base64,${data.photo}`,
+          story: separateLines,
+        });
       } catch (error) {
         console.log(error);
         alert(error);
@@ -48,7 +59,7 @@ const CreatePosts = () => {
   };
 
   return (
-    <section className="max-w-7xl mx-auto">
+    <section className="w-full h-[512px] px-12  flex flex-col">
       <div>
         <h1 className="font-extrabold text-[#222328] text-[32px]">Create</h1>
         <p className="mt-2 text-[#666e75] text-[16px] lg:max-w-[60%]">
@@ -57,30 +68,14 @@ const CreatePosts = () => {
         </p>
       </div>
 
-      <form className="mt-16 max-w-3xl" onSubmit={handleSubmit}>
+      <form
+        className="flex mt-10 w-full flex-col gap-6"
+        onSubmit={handleSubmit}
+      >
         {/* Form Fields */}
-        <div className="flex flex-col gap-5">
-          <FormField
-            labelName="Your Name"
-            type="text"
-            name="name"
-            placeholder="Type your name here..."
-            value={form.name}
-            handleChange={handleChange}
-          />
-          <FormField
-            labelName="Prompt"
-            type="text"
-            name="prompt"
-            placeholder="ie. an armchair in the shape of an avocado..."
-            value={form.prompt}
-            handleChange={handleChange}
-            isSurpriseMe
-            handleSurpriseMe={handleSurpriseMe}
-          />
-
+        <div className="flex gap-12 flex-col lg:flex-row">
           {/* Preview Placeholder/Box */}
-          <div className="relative bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-64 p-4 h-64 flex justify-center items-center">
+          <div className="relative bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full h-[300px] sm:w-[420px] sm:h-[420px] md:w-[512px] md:h-[512px] p-4 flex justify-center items-center">
             {form.photo ? (
               <img
                 src={form.photo}
@@ -102,22 +97,71 @@ const CreatePosts = () => {
               </div>
             )}
           </div>
-        </div>
 
-        {/* Generate Image Button */}
-        <div className="mt-5 flex gap-5">
-          <button
-            type="button"
-            onClick={generateImage}
-            className="text-white bg-green-700 font-medium rounded-md text-sm w-full sm:w-auto px-5 py-2.5 text-center"
-          >
-            {generatingImg ? "Generating..." : "Generate"}
-          </button>
+          {/* Story Placeholder Mobile*/}
+          {form.story.length !== 0 && (
+            <div className="flex flex-col gap-2 lg:hidden">
+              <h2 className="block text-md font-medium text-gray-900">Story</h2>
+              <div className=" bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg flex flex-col px-4 py-3 gap-1">
+                {form.story.length !== 0 ? (
+                  form.story.map((paragraph) => <p>{paragraph}</p>)
+                ) : (
+                  <p className="text-gray-400">
+                    Please generate an image to view a story...
+                  </p>
+                )}
+              </div>
+            </div>
+          )}
+
+          <div className="flex flex-col gap-6 lg:w-1/2">
+            <FormField
+              labelName="Your Name"
+              type="text"
+              name="name"
+              placeholder="Type your name here..."
+              value={form.name}
+              handleChange={handleChange}
+            />
+            <FormField
+              labelName="Prompt"
+              type="text"
+              name="prompt"
+              placeholder="ie. an armchair in the shape of an avocado..."
+              value={form.prompt}
+              handleChange={handleChange}
+              isSurpriseMe
+              handleSurpriseMe={handleSurpriseMe}
+            />
+
+            {/* Generate Image Button */}
+            <div className="mt-2 flex gap-5 lg:self-end">
+              <button
+                type="button"
+                onClick={generateImage}
+                className="text-white bg-green-700 font-medium rounded-md text-sm w-full sm:w-auto px-5 py-2.5 text-center"
+              >
+                {generatingImg ? "Generating..." : "Generate"}
+              </button>
+            </div>
+
+            {/* Story Placeholder Desktop */}
+            <div className="hidden md:flex lg:visible flex-col gap-2 h-full ">
+              <h2 className="block text-md font-medium text-gray-900 ">
+                Story
+              </h2>
+              <p className=" h-full md:h-[208px] overflow-y-scroll bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg flex flex-col px-4 py-3 gap-1">
+                {form.story.length !== 0
+                  ? form.story.map((paragraph) => <p>{paragraph}</p>)
+                  : "Please generate an image to view a story..."}
+              </p>
+            </div>
+          </div>
         </div>
 
         {/* Submit Button */}
-        <div className="mt-10">
-          <p className="mt-2 text-[#666e75] text-md">
+        <div className="pb-12">
+          <p className="mt-2  text-[#666e75] text-md">
             Once you have created the image you want, you can share it with
             others in the community!
           </p>
