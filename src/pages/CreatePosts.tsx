@@ -19,6 +19,7 @@ const CreatePosts = () => {
     if (form.prompt) {
       try {
         setGeneratingImg(true);
+        window.scrollTo(0, 0);
         const response = await fetch("http://localhost:8080/api/v1/dalle", {
           method: "POST",
           headers: {
@@ -59,7 +60,7 @@ const CreatePosts = () => {
   };
 
   return (
-    <section className="w-full h-full px-12  flex flex-col">
+    <section className="w-full h-full flex flex-col">
       <div>
         <h1 className="font-extrabold text-[#222328] text-[32px]">Create</h1>
         <p className="mt-2 text-[#666e75] text-[16px] lg:max-w-[60%]">
@@ -92,29 +93,27 @@ const CreatePosts = () => {
 
             {/* Loading State */}
             {generatingImg && (
-              <div className="absolute inset-0 z-0 flex justify-center items-center  bg-[rgba(0,0,0,0.5)] rounded-lg">
+              <div className="absolute animate-pulse inset-0 z-0 flex justify-center items-center bg-[rgba(0,0,0,0.5)] rounded-lg">
                 <Loader />
               </div>
             )}
           </div>
 
-          {/* Story Placeholder Mobile*/}
-          {form.story.length !== 0 && (
-            <div className="flex flex-col gap-2 lg:hidden">
-              <h2 className="block text-md font-medium text-gray-900">Story</h2>
-              <div className=" bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg flex flex-col px-4 py-3 gap-1">
-                {form.story.length !== 0 ? (
-                  form.story.map((paragraph) => <p>{paragraph}</p>)
-                ) : (
-                  <p className="text-gray-400">
-                    Please generate an image to view a story...
-                  </p>
-                )}
+          <div className="flex flex-col gap-6 lg:w-1/2">
+            {/* Story Placeholder Desktop */}
+            <div className="flex flex-col gap-3 h-[320px] ">
+              <h2 className="block text-md font-medium text-gray-900 ">
+                Story
+              </h2>
+              <div className="h-full overflow-y-scroll text-gray-600 bg-gray-200 border border-gray-300 text-sm rounded-lg flex flex-col px-4 py-3 gap-1">
+                {form.story.length !== 0
+                  ? form.story.map((paragraph, idx) => (
+                      <p key={idx}>{paragraph}</p>
+                    ))
+                  : "Please generate an image to view a story..."}
               </div>
             </div>
-          )}
 
-          <div className="flex flex-col gap-6 lg:w-1/2">
             <FormField
               labelName="Your Name"
               type="text"
@@ -143,18 +142,6 @@ const CreatePosts = () => {
               >
                 {generatingImg ? "Generating..." : "Generate"}
               </button>
-            </div>
-
-            {/* Story Placeholder Desktop */}
-            <div className="hidden md:flex lg:visible flex-col gap-2 h-full ">
-              <h2 className="block text-md font-medium text-gray-900 ">
-                Story
-              </h2>
-              <p className=" h-full md:h-[208px] overflow-y-scroll bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg flex flex-col px-4 py-3 gap-1">
-                {form.story.length !== 0
-                  ? form.story.map((paragraph) => <p>{paragraph}</p>)
-                  : "Please generate an image to view a story..."}
-              </p>
             </div>
           </div>
         </div>
