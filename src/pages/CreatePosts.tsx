@@ -134,7 +134,14 @@ const CreatePosts = () => {
             />
 
             {/* Generate Image Button */}
-            <div className="mt-2 flex gap-5 lg:self-end">
+            <div className="mt-2 flex w-full justify-between gap-5 lg:self-end">
+              <button
+                type="submit"
+                className="hidden md:flex text-white bg-[#6469ff] font-medium rounded-md text-sm w-full sm:w-auto px-5 py-2.5 text-center"
+              >
+                {loading ? "Sharing..." : "Share with the community"}
+              </button>
+
               <button
                 type="button"
                 onClick={generateImage}
@@ -147,9 +154,9 @@ const CreatePosts = () => {
         </div>
 
         {/* Submit Button */}
-        <div className="pb-12">
+        <div className=" md:hidden pb-12">
           <p className="mt-2  text-[#666e75] text-md">
-            Once you have created the image you want, you can share it with
+            * Once you have created the image you want, you can share it with
             others in the community!
           </p>
           <button
