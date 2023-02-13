@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
-import { Loader, Card, FormField, RenderCards } from "../components";
+import { Loader, RenderCards } from "../components";
 
 const Home = () => {
   const [loading, setLoading] = useState(false);
