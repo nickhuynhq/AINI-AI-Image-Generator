@@ -1,11 +1,31 @@
 import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
 import { Loader, RenderCards } from "../components";
+import { Post } from "../utils/types";
 
 const Home = () => {
   const [loading, setLoading] = useState(false);
   const [allPosts, setAllPosts] = useState([]);
   const [searchText, setSearchText] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
+  const [searchTimeout, setSearchTimeout] = useState(0);
+
+  const handleSearchChange = (e: React.FormEvent<HTMLInputElement>) => {
+    clearTimeout(searchTimeout);
+    setSearchText(e.currentTarget.value);
+
+    setSearchTimeout(
+      setTimeout(() => {
+        const searchResults = allPosts.filter(
+          (item: Post) =>
+            item.name.toLowerCase().includes(searchText.toLowerCase()) ||
+            item.prompt.toLowerCase().includes(searchText.toLowerCase())
+        );
+
+        setSearchResults(searchResults);
+      }, 500)
+    );
+  };
 
   useEffect(() => {
     const fetchPosts = async () => {

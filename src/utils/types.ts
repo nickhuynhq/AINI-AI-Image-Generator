@@ -1,13 +1,11 @@
 export interface RenderCardsProps {
-  data:
-    | {
-        _id: string;
-        name: string;
-        prompt: string;
-        photo: string;
-        __v: string;
-      }[]
-    | [];
+  data: {
+    _id: string;
+    name: string;
+    prompt: string;
+    photo: string;
+    __v: string;
+  }[];
   title: string;
 }
 
