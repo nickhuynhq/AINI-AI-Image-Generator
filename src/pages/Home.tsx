@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
-import { Loader, RenderCards } from "../components";
+import { FormField, Loader, RenderCards } from "../components";
 import { Post } from "../utils/types";
 
 const Home = () => {
@@ -66,7 +66,16 @@ const Home = () => {
         </p>
       </div>
 
-      <div className="mt-16">{/* <FormField /> */}</div>
+      <div className="mt-16">
+        <FormField 
+          labelName="Search Posts"
+          type="text"
+          name="text"
+          placeholder="Search posts"
+          value={searchText}
+          handleChange={handleSearchChange}
+        />
+      </div>
 
       <div className="mt-10">
         {loading ? (
@@ -85,7 +94,7 @@ const Home = () => {
             {/* Section of Rendered Images */}
             <div className="grid lg:grid-cols-4 sm:grid-cols-3 xs:grid-cols-2 grid-cols-1 gap-3">
               {searchText ? (
-                <RenderCards data={allPosts} title="No search results found" />
+                <RenderCards data={searchResults} title="No search results found" />
               ) : (
                 <RenderCards data={allPosts} title="No posts found" />
               )}
