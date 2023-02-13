@@ -41,14 +41,16 @@ const CreatePosts = () => {
           story: separateLines,
         });
 
-        toast.success("Image generated! ❤️");
+        toast.success("Image generated! ❤️", { duration: 4000 });
       } catch (error) {
-        toast.error(`${error}`);
+        toast.error(`${error}`, { duration: 4000 });
       } finally {
         setGeneratingImg(false);
       }
     } else {
-      toast.error("Please enter a prompt to generate an image.");
+      toast.error("Please enter a prompt to generate an image.", {
+        duration: 4000,
+      });
       setformError(true);
     }
   };
@@ -70,13 +72,16 @@ const CreatePosts = () => {
 
         await response.json();
         navigate("/");
+        toast.success("Image shared! ❤️", { duration: 4000 });
       } catch (error) {
-        toast.error(`${error}`);
+        toast.error(`${error}`, { duration: 4000 });
       } finally {
         setLoading(false);
       }
     } else {
-      toast.error(`Please enter a prompt to generate an image.`);
+      toast.error(`Please enter a prompt to generate an image.`, {
+        duration: 4000,
+      });
     }
   };
 
