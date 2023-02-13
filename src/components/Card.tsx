@@ -1,6 +1,8 @@
 import React from 'react'
+import { Post } from '../utils/types'
 
-const Card = () => {
+
+const Card = ({...post}: Post) => {
   return (
     <div>Card</div>
   )

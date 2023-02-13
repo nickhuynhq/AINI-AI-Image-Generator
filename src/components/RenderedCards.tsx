@@ -1,25 +1,5 @@
+import { Post, RenderCardsProps } from "../utils/types";
 import Card from "./Card";
-
-interface RenderCardsProps {
-  data:
-    | {
-        id: string;
-        name: string;
-        prompt: string;
-        photo: string;
-        __v: string;
-      }[]
-    | [];
-  title: string;
-}
-
-interface Post {
-  id: string;
-  name: string;
-  prompt: string;
-  photo: string;
-  __v: string;
-}
 
 const RenderCards = ({ data, title }: RenderCardsProps) => {
   console.log(data);
@@ -28,7 +8,7 @@ const RenderCards = ({ data, title }: RenderCardsProps) => {
     return (
       <div>
         {data.map((post: Post) => (
-          <Card key={post.id} {...post} />
+          <Card key={post._id} {...post} />
         ))}
       </div>
     );
