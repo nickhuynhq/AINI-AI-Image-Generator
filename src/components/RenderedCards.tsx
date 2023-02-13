@@ -2,14 +2,13 @@ import { Post, RenderCardsProps } from "../utils/types";
 import Card from "./Card";
 
 const RenderCards = ({ data, title }: RenderCardsProps) => {
-
   if (data?.length > 0) {
     return (
-      <div>
+      <>
         {data.map((post: Post) => (
           <Card key={post._id} {...post} />
         ))}
-      </div>
+      </>
     );
   } else {
     return (
