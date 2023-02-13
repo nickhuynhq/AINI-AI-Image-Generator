@@ -1,7 +1,7 @@
 import { Toaster } from "react-hot-toast";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Header from "./components/Header";
-import { Home, CreatePosts } from "./pages";
+import { Home, CreatePosts, PostDetails } from "./pages";
 
 const App = () => {
   return (
@@ -12,6 +12,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/create-post" element={<CreatePosts />} />
+          <Route path="/post/:id" element={<PostDetails />} />
         </Routes>
       </main>
     </BrowserRouter>
