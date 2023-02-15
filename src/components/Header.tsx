@@ -36,7 +36,7 @@ const Header = () => {
           Create
         </Link>
         <Link
-          to="/register"
+          to="/login"
           className="flex items-center font-inter font-medium border-2 border-[#6469ff] text-[#6469ff] px-4 py-2 rounded-md"
         >
           Log In

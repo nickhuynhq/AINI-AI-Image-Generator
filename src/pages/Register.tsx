@@ -17,7 +17,7 @@ const Register = () => {
               <input
                 type="text"
                 name="name"
-                className="block px-2 py-1 w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                className="block px-2 py-1 w-full mt-1 border border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                 required
               />
             </div>
@@ -33,7 +33,7 @@ const Register = () => {
               <input
                 type="text"
                 name="username"
-                className="block px-2 py-1 w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                className="block px-2 py-1 w-full mt-1 border border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                 required
               />
             </div>
@@ -49,7 +49,7 @@ const Register = () => {
               <input
                 type="email"
                 name="email"
-                className="block px-2 py-1 w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                className="block px-2 py-1 w-full mt-1 border border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                 required
               />
             </div>
@@ -65,7 +65,7 @@ const Register = () => {
               <input
                 type="password"
                 name="password"
-                className="block px-2 py-1 w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                className="block px-2 py-1 w-full mt-1 border border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                 required
               />
             </div>
@@ -81,7 +81,7 @@ const Register = () => {
               <input
                 type="password"
                 name="password_confirmation"
-                className="block px-2 py-1 w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                className="block px-2 py-1 w-full mt-1 border border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                 required
               />
             </div>
@@ -97,7 +97,7 @@ const Register = () => {
               type="submit"
               className="inline-flex items-center px-4 py-2 ml-4 text-xs font-semibold tracking-widest text-white uppercase transition duration-150 ease-in-out bg-gray-900 border border-transparent rounded-md active:bg-gray-900 false"
             >
-              Register
+              Sign Up
             </button>
           </div>
         </form>
