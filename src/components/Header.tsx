@@ -28,12 +28,20 @@ const Header = () => {
         </div>
       </div>
 
-      <Link
-        to="/create-post"
-        className="font-inter font-medium bg-[#6469ff] text-white px-4 py-2 rounded-md"
-      >
-        Create
-      </Link>
+      <div className="flex gap-3">
+        <Link
+          to="/create-post"
+          className="flex items-center font-inter font-medium bg-[#6469ff] text-white px-4 py-2 rounded-md"
+        >
+          Create
+        </Link>
+        <Link
+          to="/register"
+          className="flex items-center font-inter font-medium border-2 border-[#6469ff] text-[#6469ff] px-4 py-2 rounded-md"
+        >
+          Log In
+        </Link>
+      </div>
     </header>
   );
 };
