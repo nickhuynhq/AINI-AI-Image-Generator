@@ -2,6 +2,7 @@ import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 import { signUpUser } from "../utils/api";
 import { CustomError } from "../utils/types";
 
@@ -10,6 +11,7 @@ const Register = () => {
   const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 
   const userRef = useRef<HTMLInputElement>(null);
+  const navigate = useNavigate();
 
   const [username, setUsername] = useState("");
   const [validName, setValidName] = useState(false);
@@ -47,6 +49,7 @@ const Register = () => {
           email: target.email.value,
         });
         toast.success(response.data.message);
+        navigate("/login");
       } catch (error) {
         const customError = error as CustomError;
         toast.error(`${customError?.response?.data?.message}`);
@@ -194,7 +197,6 @@ const Register = () => {
             </label>
             <div className="flex flex-col items-start">
               <input
-                id="password"
                 type="password"
                 name="password_confirmation"
                 className=" px-2 py-1 w-full mt-1 border border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
