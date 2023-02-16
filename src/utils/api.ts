@@ -10,9 +10,16 @@ interface signUpBodyInterface {
 }
 
 interface logInInterface {
-    email: string;
-    password: string;
-  }
+  email: string;
+  password: string;
+}
+
+interface sharePostInterface {
+  prompt: string;
+  photo: string;
+  story: string;
+  user_id: number;
+}
 
 export const signUpUser = (body: signUpBodyInterface) => {
   return axios.post(`${BASE_URL}/users/register`, body);
@@ -20,4 +27,8 @@ export const signUpUser = (body: signUpBodyInterface) => {
 
 export const logInUser = (body: logInInterface) => {
   return axios.post(`${BASE_URL}/users/login`, body);
+};
+
+export const sharePost = (body: sharePostInterface) => {
+  return axios.post(`${BASE_URL}/posts`, body);
 };
