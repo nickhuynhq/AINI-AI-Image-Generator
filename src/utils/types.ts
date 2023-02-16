@@ -28,3 +28,12 @@ export interface FormFieldProps {
   handleSurpriseMe?: () => void;
   formError?: boolean;
 }
+
+
+export interface CustomError extends Error {
+  response?: {
+    data: {
+      message: string;
+    };
+  };
+}

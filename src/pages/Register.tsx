@@ -1,14 +1,13 @@
 import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useRef, useState } from "react";
+import toast from "react-hot-toast";
 import { signUpUser } from "../utils/api";
+import { CustomError } from "../utils/types";
 
 const Register = () => {
   const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
   const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
-
-  const [success, setSuccess] = useState(false);
-  const [errMsg, setErrMsg] = useState("");
 
   const userRef = useRef<HTMLInputElement>(null);
 
@@ -38,8 +37,7 @@ const Register = () => {
     };
 
     if (!validate1 || !validate2) {
-      setErrMsg("Invalid Entry");
-      return;
+      toast.error("Please check if fields are valid");
     } else {
       try {
         const response = await signUpUser({
@@ -48,10 +46,10 @@ const Register = () => {
           password: target.password.value,
           email: target.email.value,
         });
-        setSuccess(true);
-        console.log(response.data);
+        toast.success(response.data.message);
       } catch (error) {
-        console.log(error);
+        const customError = error as CustomError;
+        toast.error(`${customError?.response?.data?.message}`);
       }
     }
   };
@@ -71,11 +69,6 @@ const Register = () => {
     setValidPwd(PWD_REGEX.test(pwd));
     setValidMatch(pwd === matchPwd);
   }, [pwd, matchPwd]);
-
-  // Clear out error message
-  useEffect(() => {
-    setErrMsg("");
-  }, [username, pwd, matchPwd]);
 
   return (
     <div className="flex flex-col items-center min-h-screen pt-10 md:pt-28 sm:pt-0 bg-gray-50">

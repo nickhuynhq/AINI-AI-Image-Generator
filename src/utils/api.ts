@@ -1,6 +1,4 @@
 import axios from "axios";
-// const BASE_URL = `http://localhost:8080`;
-const BASE_URL = `https://carma-island-api.herokuapp.com`;
 
 interface signUpBodyInterface {
   name: string;
@@ -22,13 +20,13 @@ interface sharePostInterface {
 }
 
 export const signUpUser = (body: signUpBodyInterface) => {
-  return axios.post(`${BASE_URL}/users/register`, body);
+  return axios.post(`${import.meta.env.VITE_BASE_URL}/user/register`, body);
 };
 
 export const logInUser = (body: logInInterface) => {
-  return axios.post(`${BASE_URL}/users/login`, body);
+  return axios.post(`${import.meta.env.VITE_BASE_URL}/user/login`, body);
 };
 
 export const sharePost = (body: sharePostInterface) => {
-  return axios.post(`${BASE_URL}/posts`, body);
+  return axios.post(`${import.meta.env.VITE_BASE_URL}/posts`, body);
 };
