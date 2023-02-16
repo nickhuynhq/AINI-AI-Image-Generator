@@ -42,7 +42,7 @@ const Login = () => {
       localStorage.setItem("token", response.data.token);
       setUser("");
       setPwd("");
-      toast.success("Log in successful!")
+      toast.success("Log in successful!");
 
       navigate("/");
     } catch (error) {
@@ -67,7 +67,6 @@ const Login = () => {
         <h3 className="text-4xl font-bold text-black">Log In</h3>
       </div>
       <div className="w-full px-6 py-8 gap-4 overflow-hidden bg-white shadow-md sm:max-w-md sm:rounded-lg">
-
         {/* Error Message Box */}
         <div
           ref={errRef}
@@ -80,7 +79,6 @@ const Login = () => {
           <FontAwesomeIcon icon={faInfoCircle} />
           <p>Error: {errMsg}</p>
         </div>
-
 
         <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
           <div>

@@ -30,3 +30,11 @@ export const logInUser = (body: logInInterface) => {
 export const sharePost = (body: sharePostInterface) => {
   return axios.post(`${import.meta.env.VITE_BASE_URL}/posts`, body);
 };
+
+export const fetchUserProfile = () => {
+  return axios.get(`${import.meta.env.VITE_BASE_URL}/user/profile`,{
+      headers: {
+          Authorization: `Bearer ${localStorage.token}`
+      }
+  })
+}
