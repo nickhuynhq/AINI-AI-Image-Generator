@@ -14,7 +14,6 @@ const Login = () => {
   const [user, setUser] = useState("");
   const [pwd, setPwd] = useState("");
   const [errMsg, setErrMsg] = useState("");
-  const [success, setSuccess] = useState(false);
 
   useEffect(() => {
     if (userRef.current) {
@@ -40,11 +39,12 @@ const Login = () => {
         password: target.password.value,
       });
       localStorage.setItem("token", response.data.token);
+      localStorage.setItem("profile", JSON.stringify(response.data.profile));
       setUser("");
       setPwd("");
       toast.success("Log in successful!");
-
-      navigate("/");
+      
+      navigate("/", { replace: true });
     } catch (error) {
       const customError = error as CustomError;
 

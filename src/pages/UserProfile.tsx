@@ -3,20 +3,33 @@ import { Card, Loader } from "../components";
 import { fetchUserProfile } from "../utils/api";
 import { UserInfoInterface } from "../utils/types";
 
+interface UserProfileProps {
+  userInfo: UserInfoInterface;
+  setUserInfo: React.Dispatch<React.SetStateAction<UserInfoInterface>>;
+}
+
 const UserProfile = () => {
-  const [userInfo, setUserInfo] = useState<UserInfoInterface>();
+  const [showUserPosts, setShowUserPosts] = useState(true);
+  const [userInfo, setUserInfo] = useState({
+    name: "",
+    username: "",
+    picture: "",
+    email: "",
+    created_at: "",
+  });
 
   useEffect(() => {
     fetchUserProfile().then((res) => {
-      console.log(res.data[0]);
       setUserInfo(res.data[0]);
     });
   }, []);
 
-  const [showUserPosts, setShowUserPosts] = useState(true);
-
-  const posts = showUserPosts ? "border-b-2 border-black dark:text-white" : "text-gray-400 dark:text-gray-400";
-  const likes = !showUserPosts ? "border-b-2 border-black dark:text-white" : "text-gray-400 dark:text-gray-400";
+  const posts = showUserPosts
+    ? "border-b-2 border-black dark:text-white"
+    : "text-gray-400 dark:text-gray-400";
+  const likes = !showUserPosts
+    ? "border-b-2 border-black dark:text-white"
+    : "text-gray-400 dark:text-gray-400";
 
   if (!userInfo) {
     return <Loader />;
@@ -42,17 +55,22 @@ const UserProfile = () => {
 
       <nav className="w-full">
         <ul className="flex gap-10 border-b-2 border-gray-300 w-full">
-          <li className={`text-xl font-semibold cursor-pointer mt-2 ${posts}`}
-            onClick={() => setShowUserPosts(true)}>Creations</li>
-          <li className={`text-xl font-semibold cursor-pointer mt-2 ${likes}`}
-            onClick={() => setShowUserPosts(false)}>Likes</li>
-
+          <li
+            className={`text-xl font-semibold cursor-pointer mt-2 ${posts}`}
+            onClick={() => setShowUserPosts(true)}
+          >
+            Creations
+          </li>
+          <li
+            className={`text-xl font-semibold cursor-pointer mt-2 ${likes}`}
+            onClick={() => setShowUserPosts(false)}
+          >
+            Likes
+          </li>
         </ul>
       </nav>
 
-      <section>
-        {/* <Card /> */}
-      </section>
+      <section>{/* <Card /> */}</section>
     </div>
   );
 };
