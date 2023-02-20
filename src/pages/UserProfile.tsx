@@ -1,12 +1,9 @@
 import React, { useEffect, useState } from "react";
+import { toast } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 import { Card, Loader } from "../components";
 import { fetchUserProfile } from "../utils/api";
-import { UserInfoInterface } from "../utils/types";
-
-interface UserProfileProps {
-  userInfo: UserInfoInterface;
-  setUserInfo: React.Dispatch<React.SetStateAction<UserInfoInterface>>;
-}
+import { decodedTokenInterface } from "../utils/types";
 
 const UserProfile = () => {
   const [showUserPosts, setShowUserPosts] = useState(true);
@@ -18,9 +15,20 @@ const UserProfile = () => {
     created_at: "",
   });
 
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+  
+    localStorage.clear();
+    navigate("/");
+  };
+
   useEffect(() => {
     fetchUserProfile().then((res) => {
       setUserInfo(res.data[0]);
+    }).catch((error) => {
+      toast.error("Session Expired")
+      handleLogout();
     });
   }, []);
 
@@ -76,3 +84,7 @@ const UserProfile = () => {
 };
 
 export default UserProfile;
+function jwt_decode(token: string): decodedTokenInterface {
+  throw new Error("Function not implemented.");
+}
+

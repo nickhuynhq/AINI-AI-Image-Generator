@@ -19,20 +19,20 @@ interface sharePostInterface {
   user_id: number;
 }
 
-export const signUpUser = (body: signUpBodyInterface) => {
-  return axios.post(`${import.meta.env.VITE_BASE_URL}/user/register`, body);
+export const signUpUser = async (body: signUpBodyInterface) => {
+  return await axios.post(`${import.meta.env.VITE_BASE_URL}/user/register`, body);
 };
 
-export const logInUser = (body: logInInterface) => {
-  return axios.post(`${import.meta.env.VITE_BASE_URL}/user/login`, body);
+export const logInUser = async (body: logInInterface) => {
+  return await axios.post(`${import.meta.env.VITE_BASE_URL}/user/login`, body);
 };
 
-export const sharePost = (body: sharePostInterface) => {
-  return axios.post(`${import.meta.env.VITE_BASE_URL}/posts`, body);
+export const sharePost = async (body: sharePostInterface) => {
+  return await axios.post(`${import.meta.env.VITE_BASE_URL}/posts`, body);
 };
 
-export const fetchUserProfile = () => {
-  return axios.get(`${import.meta.env.VITE_BASE_URL}/user/profile`,{
+export const fetchUserProfile = async () => {
+  return await axios.get(`${import.meta.env.VITE_BASE_URL}/user/profile`,{
       headers: {
           Authorization: `Bearer ${localStorage.token}`
       }

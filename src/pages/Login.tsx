@@ -34,18 +34,22 @@ const Login = () => {
     };
 
     try {
+      
       const response = await logInUser({
         email: target.email.value,
         password: target.password.value,
       });
+
       localStorage.setItem("token", response.data.token);
       localStorage.setItem("profile", JSON.stringify(response.data.profile));
+
       setUser("");
       setPwd("");
       toast.success("Log in successful!");
-      
       navigate("/", { replace: true });
+
     } catch (error) {
+
       const customError = error as CustomError;
 
       if (!customError?.response) {

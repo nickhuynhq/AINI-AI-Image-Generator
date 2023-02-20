@@ -46,3 +46,9 @@ export interface CustomError extends Error {
     status: number;
   };
 }
+
+export interface decodedTokenInterface {
+  foo: string;
+  exp: number;
+  iat: number;
+}

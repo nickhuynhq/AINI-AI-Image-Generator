@@ -1,29 +1,26 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/logo.png";
 import openai from "../assets/logo.svg";
 import jwt_decode from "jwt-decode";
-interface decodedTokenInterface {
-  foo: string;
-  exp: number;
-  iat: number;
-}
+import { decodedTokenInterface } from "../utils/types";
+import { toast } from "react-hot-toast";
 
 const Header = () => {
   const token = localStorage.getItem("token");
   const userJson = JSON.parse(localStorage.getItem("profile") as string);
 
-  const navigate = useNavigate();
-
   const [userProfile, setUserProfile] = useState(
     userJson !== null ? userJson : { username: null, picture: null }
   );
 
-  const handleLogout = () => {
+  const navigate = useNavigate();
+
+  const handleLogout = useCallback(() => {
     localStorage.clear();
-    navigate("/");
-    navigate(0);
-  };
+    navigate("/", { replace: true });
+    navigate(0)
+  }, []);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -32,7 +29,8 @@ const Header = () => {
       const decodedToken: decodedTokenInterface = jwt_decode(token);
 
       if (decodedToken.exp * 1000 < new Date().getTime()) {
-        handleLogout;
+        toast.error("Session expired")
+        setTimeout(() => handleLogout(), 4000);
       }
     }
 
