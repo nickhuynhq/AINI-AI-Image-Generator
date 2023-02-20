@@ -2,6 +2,12 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/logo.png";
 import openai from "../assets/logo.svg";
+import jwt_decode from "jwt-decode";
+interface decodedTokenInterface {
+  foo: string;
+  exp: number;
+  iat: number;
+}
 
 const Header = () => {
   const token = localStorage.getItem("token");
@@ -15,13 +21,21 @@ const Header = () => {
 
   const handleLogout = () => {
     localStorage.clear();
-
     navigate("/");
     navigate(0);
   };
 
   useEffect(() => {
-    console.log(userProfile);
+    const token = localStorage.getItem("token");
+
+    if (token) {
+      const decodedToken: decodedTokenInterface = jwt_decode(token);
+
+      if (decodedToken.exp * 1000 < new Date().getTime()) {
+        handleLogout;
+      }
+    }
+
     if (userJson) {
       setUserProfile(userJson);
     }
