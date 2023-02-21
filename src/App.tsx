@@ -1,7 +1,14 @@
 import { Toaster } from "react-hot-toast";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Header from "./components/Header";
-import { Home, CreatePosts, PostDetails } from "./pages";
+import {
+  Home,
+  CreatePosts,
+  PostDetails,
+  Register,
+  Login,
+  UserProfile,
+} from "./pages";
 
 const App = () => {
   return (
@@ -13,6 +20,9 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/create-post" element={<CreatePosts />} />
           <Route path="/post/:id" element={<PostDetails />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/profile" element={<UserProfile />} />
         </Routes>
       </main>
     </BrowserRouter>
@@ -20,3 +30,6 @@ const App = () => {
 };
 
 export default App;
+function setUserInfo(arg0: any) {
+  throw new Error("Function not implemented.");
+}

@@ -86,7 +86,7 @@ const CreatePosts = () => {
   };
 
   const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
-    setForm({ ...form, [e.currentTarget.name]: e.currentTarget.value.trim() });
+    setForm({ ...form, [e.currentTarget.name]: e.currentTarget.value});
   };
 
   const handleSurpriseMe = () => {
